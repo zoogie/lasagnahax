@@ -21,7 +21,7 @@
 #define svcSleepThread 0x105954 // @@@@@@
 
 #define GSPGPU_FlushDataCache 0x001370f4
-#define GSPGPU_SERVHANDLEADR 0x001b49dc
+#define GSPGPU_SERVHANDLEADR 0x001b49dc //EUR 0x001b49f4
 
 #define IFile_Read 0x0011df78
 #define IFile_Write 0x00125100

