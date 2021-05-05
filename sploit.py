@@ -2,7 +2,7 @@ import os,sys,struct
 
 # This exploit is just a common string buffer overflow into the stack, but getting that to happen took a little finesse. First a little background how the profile strings are parsed.
 
-# In each profile slot (Garfield, John, and Odie) there is a "SETUP" variable towards the end. This value determines where the actual unicode profile string begins (actually it points to STR_ADDR,
+# In each profile slot (Garfield, Jon, and Odie) there is a "SETUP" variable towards the end. This value determines where the actual unicode profile string begins (actually it points to STR_ADDR,
 # which is the linearmem address of the string). Normally, it's in single digits and it points to data in BSS (approx. addr 0x1c3XXX).
 # The formula is roughly "STR_ADDR = 0x1C1A5C + (0x50*SETUP)". 
 
